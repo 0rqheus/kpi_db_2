@@ -4,6 +4,9 @@ import user
 from faker import Faker
 import redis
 import atexit
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
 
 fake = Faker()
 
@@ -24,13 +27,7 @@ class User(Thread):
 
 
 def exit_handler():
-    connection = redis.StrictRedis(
-        host='redis-13699.c1.us-east1-2.gce.cloud.redislabs.com',
-        port=13699,
-        password='GzUEBiCvKdrm3gBAaQvNrGOE4WpMQDMa',
-        charset='utf-8',
-        decode_responses=True
-    )
+    connection = redis.StrictRedis(host=config["REDIS_HOST"], port=config["REDIS_PORT"], password=config["REDIS_PASSWORD"], charset='utf-8',decode_responses=True)
     online = connection.smembers('online')
     for i in online:
         connection.srem('online', i)
@@ -44,13 +41,7 @@ def main():
     users = [fake.profile(fields=['username'], sex=None)['username'] for u in range(users_amount)]
 
     for i in range(users_amount):
-        connection = redis.StrictRedis(
-            host='redis-13699.c1.us-east1-2.gce.cloud.redislabs.com',
-            port=13699,
-            password='GzUEBiCvKdrm3gBAaQvNrGOE4WpMQDMa',
-            charset='utf-8',
-            decode_responses=True
-        )
+        connection = redis.StrictRedis(host=config["REDIS_HOST"], port=config["REDIS_PORT"], password=config["REDIS_PASSWORD"], charset='utf-8',decode_responses=True)
         threads.append(User(connection, users[i], users, users_amount))
 
     for t in threads:

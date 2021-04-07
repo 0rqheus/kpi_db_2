@@ -1,12 +1,9 @@
 import redis
+from dotenv import dotenv_values
 
-connection = redis.StrictRedis(
-    host='redis-13699.c1.us-east1-2.gce.cloud.redislabs.com',
-    port=13699,
-    password='GzUEBiCvKdrm3gBAaQvNrGOE4WpMQDMa',
-    charset='utf-8',
-    decode_responses=True
-)
+config = dotenv_values(".env")
+
+connection = redis.StrictRedis(host=config["REDIS_HOST"], port=config["REDIS_PORT"], password=config["REDIS_PASSWORD"], charset='utf-8',decode_responses=True)
 
 def main():
 

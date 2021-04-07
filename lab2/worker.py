@@ -3,7 +3,9 @@ import random
 import time
 import logging
 from threading import Thread
+from dotenv import dotenv_values
 
+config = dotenv_values(".env")
 logging.basicConfig(filename='lab2.log', level=logging.INFO, encoding='utf-8', format='[%(asctime)s] — %(message)s', datefmt='%d-%m-%YT%H:%M:%S')
 
 class EventListener(Thread):
@@ -64,25 +66,13 @@ class MesssageQueueWorker(Thread):
 
 
 def main():
-    connection = redis.StrictRedis(
-        host='redis-13699.c1.us-east1-2.gce.cloud.redislabs.com',
-        port=13699,
-        password='GzUEBiCvKdrm3gBAaQvNrGOE4WpMQDMa',
-        charset='utf-8',
-        decode_responses=True
-    )
+    connection = redis.StrictRedis(host=config["REDIS_HOST"], port=config["REDIS_PORT"], password=config["REDIS_PASSWORD"], charset='utf-8',decode_responses=True)
     listener = EventListener(connection)
     listener.setDaemon(True)
     listener.start()
 
     for i in range(1):
-        connection = redis.StrictRedis(
-            host='redis-13699.c1.us-east1-2.gce.cloud.redislabs.com',
-            port=13699,
-            password='GzUEBiCvKdrm3gBAaQvNrGOE4WpMQDMa',
-            charset='utf-8',
-            decode_responses=True
-        )
+        connection = redis.StrictRedis(host=config["REDIS_HOST"], port=config["REDIS_PORT"], password=config["REDIS_PASSWORD"], charset='utf-8',decode_responses=True)
         worker = MesssageQueueWorker(connection)
         worker.daemon = True
         worker.start()

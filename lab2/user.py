@@ -1,7 +1,9 @@
 import redis
 import datetime
 import logging
+from dotenv import dotenv_values
 
+config = dotenv_values(".env")
 logging.basicConfig(filename='lab2.log', level=logging.INFO, encoding='utf-8', format='[%(asctime)s] — %(message)s', datefmt='%d-%m-%YT%H:%M:%S')
 
 # auth
@@ -135,13 +137,7 @@ def user_menu(connection, user_id):
 
 def main():
 
-    connection = redis.StrictRedis(
-        host='redis-13699.c1.us-east1-2.gce.cloud.redislabs.com',
-        port=13699,
-        password='GzUEBiCvKdrm3gBAaQvNrGOE4WpMQDMa',
-        charset='utf-8',
-        decode_responses=True
-    )
+    connection = redis.StrictRedis(host=config["REDIS_HOST"], port=config["REDIS_PORT"], password=config["REDIS_PASSWORD"], charset='utf-8',decode_responses=True)
 
     while True:
         print('\n\n1. Login')
