@@ -2,8 +2,8 @@ from scrapy import cmdline
 from lxml import etree
 
 # crawl sources
-cmdline.execute("scrapy crawl kpi".split())
-cmdline.execute("scrapy crawl rozetka".split())
+# cmdline.execute("scrapy crawl kpi".split())
+# cmdline.execute("scrapy crawl rozetka".split())
 
 #task 1
 print("Task #1")
