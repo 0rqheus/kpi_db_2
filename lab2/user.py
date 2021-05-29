@@ -75,7 +75,7 @@ def create_message(connection, user_id, receiver, text):
 
     pipeline.lpush('queue', message_id)
 
-    pipeline.hset(message_id, 'status', 'queue')
+    pipeline.hset(msg_key, 'status', 'queue')
 
     pipeline.zincrby('sent', 1, '%s:%s' % (user_id, current_user))
     pipeline.hincrby('user:%s' % user_id, 'queue', 1)

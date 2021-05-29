@@ -44,8 +44,8 @@ class MesssageQueueWorker(Thread):
 
                 self.connection.hincrby('user:%s' % sender_id, 'queue', -1)
                 self.connection.hincrby('user:%s' % sender_id, 'checking', 1)
-                time.sleep(random.randint(0, 0.2))
 
+                time.sleep(random.randint(0, 0.2))
                 is_spam = random.choice([True, False])
 
                 pipeline = self.connection.pipeline(True)

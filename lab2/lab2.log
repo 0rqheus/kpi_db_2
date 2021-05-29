@@ -170,3 +170,7 @@
 [07-04-2021T23:40:52] — Event: User ttorres sent spam message: 'Step when return food peace everybody do its daughter difference firm.'
 [08-04-2021T00:46:32] — User: user1;	Action: login
 [08-04-2021T00:46:42] — User: user1;	Action: logout
+[08-04-2021T00:56:10] — User: user1;	Action: login
+[08-04-2021T00:56:58] — User: user1;	Action: logout
+[08-04-2021T00:57:05] — User: tester;	Action: login
+[08-04-2021T00:57:24] — User: tester;	Action: logout
